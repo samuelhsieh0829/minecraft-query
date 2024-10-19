@@ -1,0 +1,17 @@
+services:
+  mc-dcbot:
+    image: mc37_dcbot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mc-dcbot
+    restart: unless-stopped
+    networks:
+      - minecraft-dc-network
+    volumes:
+      - ./:/data
+
+networks:
+  minecraft-dc-network:
+    external:
+      name: minecraft-network
