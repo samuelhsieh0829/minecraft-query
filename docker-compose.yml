@@ -8,8 +8,6 @@ services:
     restart: unless-stopped
     networks:
       - minecraft_dc_network
-    volumes:
-      - ./:/data
 
 networks:
   minecraft_dc_network:
