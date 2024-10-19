@@ -13,7 +13,7 @@ class Server:
             await self.server.async_ping()
             return True
         except:
-            logging.exception(exc_info=True)
+            logging.exception(msg="Error while checking online",exc_info=True)
             return False
 
     async def __get_status(self):
