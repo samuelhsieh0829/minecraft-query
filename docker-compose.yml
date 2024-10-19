@@ -14,4 +14,4 @@ services:
 networks:
   minecraft-dc-network:
     external:
-      name: minecraft-network
+      name: minecraft37_network
