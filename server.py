@@ -1,4 +1,5 @@
 import mcstatus
+import logging
 
 class Server:
     def __init__(self, ip, port, name) -> None:
@@ -12,6 +13,7 @@ class Server:
             await self.server.async_ping()
             return True
         except:
+            logging.exception(exc_info=True)
             return False
 
     async def __get_status(self):
