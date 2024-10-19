@@ -14,3 +14,4 @@ services:
 networks:
   minecraft37_network:
     external: true
+    name: minecraft37_network
