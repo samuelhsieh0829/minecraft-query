@@ -6,6 +6,9 @@ from servers import Servers, server_name
 from typing import Optional
 from datetime import datetime
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 load_dotenv()
 
@@ -29,7 +32,7 @@ async def update():
             offline.pop(server)
             online.append(server)
         else:
-            print(f"{server} is offline")
+            logging.warning(f"{server} is offline")
     if len(offline) == len(Servers):
         embed = discord.Embed(title=server_name, description="伺服器離線", color=discord.Color.red())
         embed.set_footer(text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -62,12 +65,12 @@ async def update():
 
 @bot.event
 async def on_ready():
-    print(f"Logged in as {bot.user}")
+    logging.info(f"Logged in as {bot.user}")
     try:
         await bot.tree.sync()
         update.start()
     except Exception as e:
-        print(f"Error syncing tree: {e}")
+        logging.error(f"Error syncing tree: {e}")
 
 @bot.tree.command(name="create_message", description="Create a message to update the server status")
 async def create_message(ctx:discord.Interaction, message_id:Optional[str], channel_id:Optional[str]):
@@ -83,7 +86,7 @@ async def create_message(ctx:discord.Interaction, message_id:Optional[str], chan
             channel = await bot.fetch_channel(channel_id)
             message = await channel.fetch_message(message_id)
         except Exception as e:
-            print(e)
+            logging.error(e)
             await ctx.response.send_message(f"Error fetching message", ephemeral=True)
             return
     messages = [channel.id, message.id]
