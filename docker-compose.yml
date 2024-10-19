@@ -7,10 +7,10 @@ services:
     container_name: mc-dcbot
     restart: unless-stopped
     networks:
-      - minecraft-dc-network
+      - minecraft37_network
     volumes:
       - ./:/data
 
 networks:
-  minecraft-dc-network:
+  minecraft37_network:
     external: true
