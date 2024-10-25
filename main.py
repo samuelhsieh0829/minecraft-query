@@ -94,6 +94,18 @@ async def create_message(ctx:discord.Interaction, message_id:Optional[str], chan
         json.dump({"channel_id":channel.id, "message_id":message.id}, f)
     await ctx.response.send_message("ok", ephemeral=True)
 
+@bot.tree.command(name="update", description="Update the server status")
+async def force_update(ctx:discord.Interaction):
+    if ctx.user.id != 551395982756282369:
+        await ctx.response.send_message("You do not have permission to use this command", ephemeral=True)
+        return
+    if not update.is_running():
+        update.start()
+        await ctx.response.send_message("ok", ephemeral=True)
+    else:
+        update.restart()
+        await ctx.response.send_message("ok", ephemeral=True)
+
 @bot.tree.command(name="raw", description="Get the raw data of the server")
 async def raw(ctx:discord.Interaction, name:str):
     if ctx.user.id != 551395982756282369:
